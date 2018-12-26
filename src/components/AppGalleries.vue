@@ -23,9 +23,9 @@ export default {
 		...mapActions(['getGalleries'])
 	},
 	computed: {
-			...mapGetters({
-					galleries: 'getGalleries'
-			})
+		...mapGetters({
+			galleries: 'getGalleries'
+		})
 	}
 }
 </script>
