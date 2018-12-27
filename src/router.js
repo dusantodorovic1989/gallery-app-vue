@@ -8,19 +8,22 @@ Vue.use(VueRouter);
 
 const routes = [
     {
-        name: '/',
-        path: 'home',
-        component: AppGalleries
+        name: 'home',
+        path: '/',
+        component: AppGalleries,
+        
     },
     {
-        name: '/login',
-        path: 'login',
-        component: Login
+        name: 'login',
+        path: '/login',
+        component: Login,
+       
     },
     {
-        name: '/register',
-        path: 'register',
-        component: Register
+        name: 'register',
+        path: '/register',
+        component: Register,
+        
     },
     
 ];
@@ -30,5 +33,15 @@ const router = new VueRouter({
     mode: 'history'
 });
 
+router.beforeEach((to, from, next) => {
+    const isAuthenticated = !!localStorage.getItem('token');
+    if (isAuthenticated && to.meta.guest) {
+      return next({ name: 'home' });
+    }
+    if (!isAuthenticated && to.meta.auth) {
+      return next({ name: 'login' });
+    }
+    return next();
+});
 
 export default router;

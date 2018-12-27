@@ -4,7 +4,7 @@
   <div>
     <nav class="navbar navbar-expand-lg navbar-green bg-dark fixed-top">
       <div class="container">
-        <router-link class="navbar-brand" to="/">GALLERIES APP</router-link>
+        <router-link class="navbar-brand" to="/">ALL GALLERIES</router-link>
         <button
           class="navbar-toggler"
           type="button"
@@ -43,15 +43,11 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 
-import router from "./../../router";
-
 export default {
-	  methods: {
+  methods: {
     ...mapActions(["logout"]),
     logoutOnClick() {
-        this.logout().then(() => {
-        router.push({ name: "login" });
-      });
+     this.logout();
     }
   },
   computed: {
@@ -59,7 +55,7 @@ export default {
       user: "getUser"
     })
   }
-}
+};
 </script>
 
 <style>

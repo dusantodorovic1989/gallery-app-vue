@@ -12,7 +12,7 @@ export default {
     errors: null
   },
   mutations: {
-    SET_DATA(state, { user }) {
+    SET_DATA(state, user ) {
       (state.user = user), (state.errors = null);
     },
     SET_ERRORS(state, errors) {

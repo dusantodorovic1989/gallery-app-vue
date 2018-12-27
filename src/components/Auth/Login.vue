@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <form class="form-signin" @submit.prevent="submitForm">
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
       <div class="form-group">
@@ -40,18 +41,12 @@ export default {
   data() {
     return {
       user: Object
-    };
+    }
   },
   methods: {
     ...mapActions(["login"]),
     submitForm() {
-      this.login(this.user)
-        .then(() => {
-          router.push({ name: "home" });
-        })
-        .catch(error => {
-          this.errors = error.response.data.message;
-        });
+      this.login(this.user);
     }
   },
   computed: {
