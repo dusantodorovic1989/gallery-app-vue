@@ -3,7 +3,11 @@ import router from './../router';
 
 const getUserFromLocalStorage = () => {
   const user = localStorage.getItem('user');
-  return JSON.parse(user);
+  console.log(JSON.parse(user));
+  if(user) {
+    return JSON.parse(user);
+
+  }
 };
 
 // const getUserFromLocalStorage = () => {

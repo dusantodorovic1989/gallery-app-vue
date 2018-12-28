@@ -32,6 +32,23 @@
         </div>
       </b-carousel>
     </div>
+    <hr>
+      <div class="container" v-for="comment in gallery.comments" :key="comment.id">
+      <p class="comment-author">Author: {{ comment.user.first_name }} {{ comment.user.last_name }}</p>
+      <p class="comment-author">Created :{{ comment.created_at}}</p>
+      <p class="comment-author">{{ comment.body }}</p>
+      <hr>
+    </div>
+    <div v-if="user">
+      <b-form-textarea
+        id="textarea1"
+        v-model="newComment.body"
+        placeholder="Enter something"
+        :rows="3"
+        :max-rows="6"
+      ></b-form-textarea>
+      <b-button variant="outline-secondary" class="comment-button" @click="addComment">Submit</b-button>
+    </div>
   </div>
 </template>
 
@@ -40,7 +57,8 @@ import BCarousel from "bootstrap-vue/es/components/carousel/carousel";
 import BCarouselSlide from "bootstrap-vue/es/components/carousel/carousel";
 
 import galleriesService from "./../services/galleries-service";
-
+import commentService from "./../services/comment-service";
+import {mapGetters} from 'vuex';
 export default {
   name: "Singlegallery",
   data() {
@@ -48,6 +66,7 @@ export default {
       gallery: Object,
       slide: 0,
       sliding: null,
+      newComment: {},
     };
   },
   components(){
@@ -55,7 +74,23 @@ export default {
       BCarouselSlide
 
   },
+  computed: {
+      ...mapGetters({
+          user: 'getUser'
+      })
+  },
   methods: {
+       addComment() {
+      commentService
+        .addComment(this.$route.params.id, this.newComment)
+        .then(response => {
+          this.gallery.comments.push(response.data[0]);
+          this.newComment = "";
+        })
+        .catch(error => {
+          this.errors = error;
+        });
+    },
     onSlideStart (slide) {
       this.sliding = true
     },
@@ -67,6 +102,8 @@ export default {
     galleriesService.getSingleGallery(to.params.id).then(response => {
       next(vm => {
         vm.gallery = response.data;
+        console.log(response.data);
+        
       });
     });
   }

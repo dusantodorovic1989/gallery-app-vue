@@ -1,14 +1,11 @@
 import http from './http-service';
 
 class AuthService {
-    async login(email, password) {
-        try {
-            const response = await http.post('auth/login', { email, password });  
-            this.setDataForLogin(response.data);
-        return response;
-    } catch (error) {
-        Promise.reject(error.response.data.errors);
-      }
+  login(email, password) {
+    return http.post('auth/login', { email, password }).then((response) => {
+      this.setDataForLogin(response.data);
+      return response;
+});
   }
   register({
     first_name,
@@ -33,6 +30,13 @@ class AuthService {
       })
       .catch((error) => Promise.reject(error.response.data.errors));
   }
+    logout() {
+    return http.get('auth/logout').then(() => {
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      this.setAuthHeaders();
+    });
+}
   setAuthHeaders(token) {
     if (!token) {
       delete http.defaults.headers.common['Authorization'];
