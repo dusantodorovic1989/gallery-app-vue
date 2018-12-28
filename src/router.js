@@ -1,12 +1,20 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import AppGalleries from './components/AppGalleries';
+import SingleGalleries from './components/SingleGalleries'
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
+import BootstrapVue from 'bootstrap-vue';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 
+
+
+Vue.use(BootstrapVue);
 Vue.use(VueRouter);
 
 const routes = [
+    
     {
         name: 'home',
         path: '/',
@@ -25,6 +33,12 @@ const routes = [
         component: Register,
         
     },
+    {
+        path: '/galleries/:id',
+        name: 'single-gallery',
+        component: SingleGalleries,
+       
+      },
     
 ];
 

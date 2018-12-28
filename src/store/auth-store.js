@@ -6,6 +6,11 @@ const getUserFromLocalStorage = () => {
   return JSON.parse(user);
 };
 
+// const getUserFromLocalStorage = () => {
+//   const json = localStorage.getItem('user')
+//   return JSON.parse(json.user || '{}')
+// }
+
 export default {
   state: {
     user: getUserFromLocalStorage(),

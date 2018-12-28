@@ -1,4 +1,4 @@
-import galleriesService from './../services/galleries-sevice';
+import galleriesService from './../services/galleries-service';
 export default {
 	state: {
 			galleries: [],

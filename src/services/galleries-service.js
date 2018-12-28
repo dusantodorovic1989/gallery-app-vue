@@ -6,6 +6,9 @@ class GalleriesService {
               .get(`galleries?page=${page}&term=${term}`)
               .then(({ data }) => data.galleries);
     }
+    getSingleGallery(id) {
+        return http.get(`galleries/${id}`);
+      }
 }
 
 const galleriesService = new GalleriesService();
