@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1 class="title">{{ gallery.title }}</h1>Author
-    <router-link to="#">
-      <h4 class="title author">{{ gallery.user.first_name }} {{ gallery.user.last_name }}</h4>
+    <router-link to=" name: 'authors-gallery', params: { id: userId }}">
+      <h4 class="title author">{{ username }}</h4>
     </router-link>Created At:
     <small class="title">{{ gallery.created_at }}</small>
     <h4 class="card h-100">{{ gallery.description }}</h4>
@@ -34,9 +34,10 @@
     </div>
     <hr>
       <div class="container" v-for="comment in gallery.comments" :key="comment.id">
+      <p class="comment-author">{{ comment.body }}</p>
       <p class="comment-author">Author: {{ comment.user.first_name }} {{ comment.user.last_name }}</p>
       <p class="comment-author">Created :{{ comment.created_at}}</p>
-      <p class="comment-author">{{ comment.body }}</p>
+      
       <hr>
     </div>
     <div v-if="user">
@@ -69,11 +70,11 @@ export default {
       newComment: {},
     };
   },
-  components(){
-      BCarousel,
-      BCarouselSlide
+  // components(){
+  //     BCarousel,
+  //     BCarouselSlide
 
-  },
+  // },
   computed: {
       ...mapGetters({
           user: 'getUser'
@@ -101,8 +102,9 @@ export default {
   beforeRouteEnter(to, from, next) {
     galleriesService.getSingleGallery(to.params.id).then(response => {
       next(vm => {
-        vm.gallery = response.data;
-        console.log(response.data);
+        vm.gallery = response;
+        vm.userId = response.user_id;
+        vm.username = response.user.first_name + " " + response.user.last_name;
         
       });
     });

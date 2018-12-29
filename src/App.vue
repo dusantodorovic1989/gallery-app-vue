@@ -9,6 +9,7 @@
 
 <script>
 import NavBar from './components/partials/NavBar'
+import Singlegallery from './components/SingleGalleries'
 
 export default {
   name: 'app',

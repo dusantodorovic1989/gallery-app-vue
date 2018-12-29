@@ -3,7 +3,6 @@ import router from './../router';
 
 const getUserFromLocalStorage = () => {
   const user = localStorage.getItem('user');
-  console.log(JSON.parse(user));
   if(user) {
     return JSON.parse(user);
 
@@ -39,9 +38,7 @@ export default {
     },
 
     logout({ commit }) {
-      authService.setAuthHeaders();
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
+      authService.logout();
       commit('SET_DATA', { user: null });
       router.push({ name: 'login' });
     },

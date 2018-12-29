@@ -4,7 +4,7 @@
   <div>
     <nav class="navbar navbar-expand-lg navbar-green bg-dark fixed-top">
       <div class="container">
-        <router-link class="navbar-brand" to="/">ALL GALLERIES</router-link>
+        <router-link class="navbar-brand" to="/">All galleries</router-link>
         <button
           class="navbar-toggler"
           type="button"
@@ -20,18 +20,18 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
               <router-link class="nav-link" to="/">
-                HOME
+                Home
                 <span class="sr-only">(current)</span>
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/login" v-if="!user">LOGIN</router-link>
+              <router-link class="nav-link" to="/login" v-if="!user">Login</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/register" v-if="!user">REGISTER</router-link>
+              <router-link class="nav-link" to="/register" v-if="!user">Register</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" @click="logoutOnClick" v-if="user">LOGOUT</a>
+              <a class="nav-link" @click="logoutOnClick" v-if="user">Logout</a>
             </li>
           </ul>
         </div>
@@ -44,6 +44,7 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
+  name: "Navbar",
   methods: {
     ...mapActions(["logout"]),
     logoutOnClick() {
@@ -58,5 +59,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.nav-item {
+  color: #b6c1c3;
+  
+}
 </style>

@@ -37,10 +37,7 @@
       <div class="form-group">
         <label>Password</label>
         <input type="password" class="form-control" placeholder="Password" v-model="user.password">
-        <small
-          id="emailHelp"
-          class="form-text text-muted"
-        >We'll never share your password with anyone else.</small>
+        
       </div>
       <div class="form-group">
         <label>Password Confirm</label>

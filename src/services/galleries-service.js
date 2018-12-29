@@ -7,7 +7,7 @@ class GalleriesService {
               .then(({ data }) => data.galleries);
     }
     getSingleGallery(id) {
-        return http.get(`galleries/${id}`);
+        return http.get(`galleries/${id}`).then(({ data }) => data);
       }
 }
 
