@@ -15,34 +15,37 @@ Vue.use(VueRouter);
 
 const routes = [
     {
-        path:'/',
-        redirect:'galleries'
+        
+            path: '/',
+            name: 'home',
+            component: AppGalleries
+        
     },
     {
         name: 'home',
         path: '/galleries',
         component: AppGalleries,
-        meta: {
-            auth: false
-        }
+        // meta: {
+        //     auth: false
+        // }
         
     },
     {
         name: 'login',
         path: '/login',
         component: Login,
-        meta: {
-            guest: true
-        }
+        // meta: {
+        //     guest: true
+        // }
        
     },
     {
         name: 'register',
         path: '/register',
         component: Register,
-        meta: {
-            guest: true
-        }
+        // meta: {
+        //     guest: true
+        // }
     },
     {
         path: '/galleries/:id',

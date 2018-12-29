@@ -18,12 +18,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <router-link class="nav-link" to="/">
-                Home
-                <span class="sr-only">(current)</span>
-              </router-link>
-            </li>
+            
             <li class="nav-item">
               <router-link class="nav-link" to="/login" v-if="!user">Login</router-link>
             </li>

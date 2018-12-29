@@ -4,7 +4,7 @@ import router from './../router';
 const getUserFromLocalStorage = () => {
   const user = localStorage.getItem('user');
   if(user) {
-    return JSON.parse(user);
+    return (user);
 
   }
 };
@@ -36,13 +36,6 @@ export default {
         commit('SET_ERRORS', error.response.data.message);
       }
     },
-
-    logout({ commit }) {
-      authService.logout();
-      commit('SET_DATA', { user: null });
-      router.push({ name: 'login' });
-    },
-
     async register({ commit }, user) {
       try {
         commit('SET_DATA', await authService.register(user));
@@ -50,7 +43,17 @@ export default {
       } catch (error) {
         commit('SET_ERRORS', error);
       }
-    }
+    },
+
+    logout({ commit }) {
+      authService.setAuthHeaders();
+      localStorage.removeItem('user');
+      localStorage.removeItem('token')
+      commit('SET_DATA', {user:null, token:null});
+      router.push({ name: '/' });
+    },
+
+    
   },
   getters: {
     getUser(state) {

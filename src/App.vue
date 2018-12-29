@@ -14,7 +14,8 @@ import Singlegallery from './components/SingleGalleries'
 export default {
   name: 'app',
   components: {
-    NavBar
+    NavBar,
+    Singlegallery
   }
 }
 </script>

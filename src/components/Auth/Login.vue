@@ -10,10 +10,10 @@
           id="inputEmail"
           class="form-control"
           placeholder="Email address"
-          required
           autocomplete="email"
           autofocus
           v-model="user.email"
+          required
         >
       </div>
 
@@ -24,9 +24,10 @@
           id="inputPassword"
           class="form-control"
           placeholder="Password"
-          required
+          
           autocomplete="current-password"
           v-model="user.password"
+          required  
         >
       </div>
       <button class="btn btn-dark" type="submit">Log in</button>
@@ -40,7 +41,9 @@ export default {
   name: "Login",
   data() {
     return {
-      user: Object
+      user: {},
+      email: `\uf0e0 Enter Email`,
+      password: `\uf023 Password`
     }
   },
   methods: {

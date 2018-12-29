@@ -2,7 +2,7 @@
   <div>
     <h1 class="title">{{ gallery.title }}</h1>Author
     <router-link to=" name: 'authors-gallery', params: { id: userId }}">
-      <h4 class="title author">{{ username }}</h4>
+      <h4 class="title author">{{ gallery.user.first_name + " " + gallery.user.last_name}}</h4>
     </router-link>Created At:
     <small class="title">{{ gallery.created_at }}</small>
     <h4 class="card h-100">{{ gallery.description }}</h4>
@@ -100,15 +100,16 @@ export default {
     }
   },
   beforeRouteEnter(to, from, next) {
-    galleriesService.getSingleGallery(to.params.id).then(response => {
+    galleriesService.getSingleGallery(to.params.id).then(gallery => {
       next(vm => {
-        vm.gallery = response;
-        vm.userId = response.user_id;
-        vm.username = response.user.first_name + " " + response.user.last_name;
+        vm.gallery = gallery;
+        //vm.userId = gallery.user_id;
+        vm.username = gallery.user.first_name + " " + gallery.user.last_name;
         
       });
     });
-  }
+  },
+  
 };
 </script>
 
