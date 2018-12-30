@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import AppGalleries from './components/AppGalleries';
+import AppGallery from './components/AppGallery';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
-import SingleGalleries from './components/SingleGalleries'
+import SingleGalleries from './components/SingleGalleries';
+import AuthorGallery from './components/AuthorGallery';
+import MyGalleries from './components/MyGalleries';
 import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
@@ -16,19 +18,36 @@ Vue.use(VueRouter);
 const routes = [
     {
         
-            path: '/',
-            name: 'home',
-            component: AppGalleries
+        path: '/',
+        redirect: 'galleries',
+            
         
     },
     {
-        name: 'home',
+        
         path: '/galleries',
-        component: AppGalleries,
+        name: 'home',
+        component: AppGallery,
         // meta: {
         //     auth: false
         // }
         
+    },
+    {
+        path: '/galleries/:id',
+        name: 'single-gallery',
+        component: SingleGalleries,
+       
+    },
+    {
+        path: '/authors/:id',
+        name: 'author-galleries',
+        component: AuthorGallery
+    },
+    {
+        path: '/my-galleries',
+        name: 'my-galleries',
+        component: MyGalleries
     },
     {
         name: 'login',
@@ -47,12 +66,8 @@ const routes = [
         //     guest: true
         // }
     },
-    {
-        path: '/galleries/:id',
-        name: 'single-gallery',
-        component: SingleGalleries,
-       
-      },
+    
+    
     
 ];
 

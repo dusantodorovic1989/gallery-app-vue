@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="title">{{ gallery.title }}</h1>Author
-    <router-link :to="{ name: 'authors-gallery', params: { id: currentUserId }}">
+    <router-link :to="{ name: 'authors-gallery', params: { id: UserId }}">
       <h4 class="title author">{{ username}}</h4>
     </router-link>Created At:
     <small class="title">{{ gallery.created_at }}</small>

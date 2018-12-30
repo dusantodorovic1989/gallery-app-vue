@@ -10,7 +10,7 @@
                                <a href="#">{{ gallery.title }}</a>
                            </h4>
                        </router-link>                        <p>Author:</p>
-                       <router-link to="#" class="box-title">
+                       <router-link :to="{ name: 'author-galleries', params: { id: gallery.user.id }}">
                            <h4>{{ gallery.user.first_name }} {{ gallery.user.last_name }}</h4>
                        </router-link>
                         <small>Created at: {{ gallery.created_at }}</small>
@@ -35,5 +35,14 @@ import { mapGetters, mapActions } from 'vuex';export default {
        })
    }
 }
-</script><style>
+</script>
+
+
+<style scoped>
+.container {
+  display: flex center;
+  width: 150%;
+  margin-bottom: 40px;
+  
+}
 </style>

@@ -5,6 +5,8 @@
     <nav class="navbar navbar-expand-lg navbar-green bg-dark fixed-top">
       <div class="container">
         <router-link class="navbar-brand" to="/">All galleries</router-link>
+        <router-link class="navbar-brand" to="/my-galleries" v-if="user">My Galleries</router-link>
+        <router-link class="navbar-brand" to="/create" v-if="user">Create New Gallery</router-link>
         <button
           class="navbar-toggler"
           type="button"
