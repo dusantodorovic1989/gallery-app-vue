@@ -36,6 +36,7 @@ return response;
 //     localStorage.removeItem('id');
 //     this.setAuthHeaders();
 // }
+
   setAuthHeaders(token) {
     if (!token) {
       delete http.defaults.headers.common['Authorization'];

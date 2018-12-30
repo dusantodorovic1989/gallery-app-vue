@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <div class="col-lg-6 portfolio-item" v-for="gallery in galleries" :key="gallery.id">
       <div class="card h-100">
         <img class="card-img-top" :src="gallery.images[0].image_url" alt>
@@ -30,14 +29,11 @@ export default {
   data() {
     return {
       galleries: [],
+       page: 1,
+       term: "",
     };
   },
-  created() {
-    galleriesService.getUsersGalleries(this.$route.params.id).then(response => {
-      this.galleries = response;
-      console.log(this.galleries);
-    });
-  },
+ 
   methods: {
     loadMore() {
       this.page++;
@@ -46,7 +42,14 @@ export default {
         .then(galleries => {
           this.galleries.push(...galleries);
         });
-    }
+    },
+     created() {
+    galleriesService
+      .getUsersGalleries(this.$route.params.id)
+      .then(galleries => {
+        this.galleries = galleries.data;
+      });
+  },
   }
 };
 

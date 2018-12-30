@@ -114,6 +114,16 @@ export default {
       this.sliding = false
     }
   },
+   computed: {
+      ...mapGetters({
+          user: 'getUser'
+      }),
+       
+    currentUserId() {
+      let id = Number(localStorage.getItem("id"));
+      return id ? id : 0;
+    }
+  },
     beforeRouteEnter(to, from, next) {
       galleriesService.getSingleGallery(to.params.id).then(gallery => {
         next(vm => {

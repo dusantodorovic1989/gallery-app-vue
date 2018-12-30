@@ -6,6 +6,7 @@ import Register from './components/Auth/Register';
 import SingleGalleries from './components/SingleGalleries';
 import AuthorGallery from './components/AuthorGallery';
 import MyGalleries from './components/MyGalleries';
+import CreateGallery from './components/CreateGallery';
 import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
@@ -28,9 +29,7 @@ const routes = [
         path: '/galleries',
         name: 'home',
         component: AppGallery,
-        // meta: {
-        //     auth: false
-        // }
+    
         
     },
     {
@@ -41,7 +40,7 @@ const routes = [
     },
     {
         path: '/authors/:id',
-        name: 'author-galleries',
+        name: 'authors-gallery',
         component: AuthorGallery
     },
     {
@@ -50,22 +49,40 @@ const routes = [
         component: MyGalleries
     },
     {
+        path: '/create',
+        name: 'create-gallery',
+        component: CreateGallery,
+        meta: {
+          auth: true
+        }
+    },
+    {
+        path: '/edit-gallery/:id',
+        name: 'edit',
+        component: CreateGallery,
+        meta: {
+          auth: true
+        }
+    },
+    {
         name: 'login',
         path: '/login',
         component: Login,
-        // meta: {
-        //     guest: true
-        // }
+        meta: {
+            guest: true
+        }
        
     },
     {
         name: 'register',
         path: '/register',
         component: Register,
-        // meta: {
-        //     guest: true
-        // }
+        meta: {
+            guest: true
+        }
     },
+  
+   
     
     
     

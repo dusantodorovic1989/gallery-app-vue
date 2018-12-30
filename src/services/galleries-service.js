@@ -15,6 +15,24 @@ class GalleriesService {
           .get(`author-galleries/${id}`, { params: { page, term } })
           .then(({ data }) => data.galleries);
     }  
+    createGallery({ title, description, images }) {
+        return http.post('galleries', {
+          title,
+          description,
+          images
+        });
+      }
+      editGallery(id, { title, description, images }) {
+        return http.put(`galleries/${id}`, {
+          title,
+          description,
+          images
+        });
+      }
+    
+      deleteGallery(id) {
+        return http.delete(`galleries/${id}`);
+      }
 }
 
 const galleriesService = new GalleriesService();

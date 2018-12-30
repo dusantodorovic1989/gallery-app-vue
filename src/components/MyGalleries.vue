@@ -24,9 +24,9 @@
 
 <script>
 import galleriesService from "./../services/galleries-service";
-
+import { mapGetters } from "vuex";
 export default {
-  name: "AuthorGallery",
+  name: "MyGalleries",
   components: {
     
   },
@@ -37,13 +37,10 @@ export default {
       term: ""
     };
   },
-   created() {
-    galleriesService
-      .getUsersGalleries(this.id, this.page, this.term)
-      .then(galleries => {
-        this.galleries = galleries.data;
-        console.log(this.galleries);
-      });
+  computed: {
+    ...mapGetters({
+      user: "getUser"
+    })
   },
   methods: {
     loadMore() {
@@ -53,7 +50,16 @@ export default {
         .then(galleries => {
           this.galleries.push(galleries);
         });
-    }
+    },
+    created() {
+      console.log("disko")
+    galleriesService
+      .getUsersGalleries(this.user.id, this.page, this.term)
+      .then(galleries => {
+        this.galleries = galleries.data;
+        console.log(this.galleries);
+      });
+  }
   }
 }; 
 
