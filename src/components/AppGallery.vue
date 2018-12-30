@@ -23,7 +23,8 @@
   </div>
 </template>
  <script>
- import { mapGetters, mapActions } from 'vuex';export default {
+ import { mapGetters, mapActions } from 'vuex';
+ export default {
    name: 'AllGalleries',
    created() {
        this.getGalleries();
@@ -49,6 +50,7 @@
   display: flex center;
   width: 150%;
   margin-bottom: 40px;
+  
   
 }
 </style>

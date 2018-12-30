@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="col-lg-6 portfolio-item" v-for="gallery in galleries" :key="gallery.id">
+    <div class="col-lg-6 portfolio-item" v-for="gallery in usersGalleries" :key="gallery.id">
       <div class="card h-100">
         <img class="card-img-top" :src="gallery.images[0].image_url" alt>
         <div class="card-body">
@@ -21,35 +21,34 @@
 
 <script>
 import galleriesService from "./../services/galleries-service";
+import { mapGetters, mapActions } from 'vuex';
 export default {
   name: "AuthorGallery",
   components: {
-    
+
   },
   data() {
     return {
-      galleries: [],
        page: 1,
        term: "",
     };
   },
- 
+
   methods: {
+    ...mapActions(['getUsersGalleries']),
     loadMore() {
       this.page++;
-      galleriesService
-        .getUsersGalleries(this.$route.params.id, this.page, this.term)
-        .then(galleries => {
-          this.galleries.push(...galleries);
-        });
+      this.getUsersGalleries(this.$route.params.id, this.page, this.term)
     },
      created() {
-    galleriesService
-      .getUsersGalleries(this.$route.params.id)
-      .then(galleries => {
-        this.galleries = galleries.data;
-      });
+      this.getUsersGalleries(this.$route.params.id)
+    },
   },
+
+  computed: {
+      ...mapGetters({
+          usersGalleries: 'usersGalleries'
+      })
   }
 };
 
