@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1 class="title">{{ gallery.title }}</h1>Author
-    <router-link to=" name: 'authors-gallery', params: { id: userId }}">
-      <h4 class="title author">{{ gallery.user.first_name + " " + gallery.user.last_name}}</h4>
+    <router-link :to="{ name: 'authors-gallery', params: { id: currentUserId }}">
+      <h4 class="title author">{{ username}}</h4>
     </router-link>Created At:
     <small class="title">{{ gallery.created_at }}</small>
     <h4 class="card h-100">{{ gallery.description }}</h4>
@@ -33,11 +33,15 @@
       </b-carousel>
     </div>
     <hr>
-      <div class="container" v-for="comment in gallery.comments" :key="comment.id">
+      <div class="container" v-for="(comment,index) in gallery.comments" :key="comment.id">
       <p class="comment-author">{{ comment.body }}</p>
       <p class="comment-author">Author: {{ comment.user.first_name }} {{ comment.user.last_name }}</p>
       <p class="comment-author">Created :{{ comment.created_at}}</p>
-      
+      <button
+        v-if="comment.user_id == currentUserId"
+        class="btn btn-outline-secondary"
+        @click="deleteComment(comment.id,index)"
+        >Delete</button>
       <hr>
     </div>
     <div v-if="user">
@@ -48,7 +52,7 @@
         :rows="3"
         :max-rows="6"
       ></b-form-textarea>
-      <b-button variant="outline-secondary" class="comment-button" @click="addComment">Submit</b-button>
+      <b-button variant="outline-secondary" class="comment-button" @click="addComment">Leave a comment</b-button>
     </div>
   </div>
 </template>
@@ -65,9 +69,12 @@ export default {
   data() {
     return {
       gallery: Object,
+      newComment: {},
+      username: null,
+      userId: null,
       slide: 0,
       sliding: null,
-      newComment: {},
+      errors: null
     };
   },
   // components(){
@@ -78,19 +85,27 @@ export default {
   computed: {
       ...mapGetters({
           user: 'getUser'
-      })
+      }),
+       
+    currentUserId() {
+      let id = Number(localStorage.getItem("id"));
+      return id ? id : 0;
+    }
   },
   methods: {
-       addComment() {
+    addComment() {
       commentService
         .addComment(this.$route.params.id, this.newComment)
-        .then(response => {
-          this.gallery.comments.push(response.data[0]);
-          this.newComment = "";
-        })
-        .catch(error => {
-          this.errors = error;
+        .then(galleries => {
+          this.gallery.comments.push(galleries);
+          this.newComment = {};
         });
+    },
+    deleteComment(id, index) {
+      if (confirm("Are you sure?")) {
+        this.gallery.comments.splice(index, 1);
+        commentService.delete(id);
+      }
     },
     onSlideStart (slide) {
       this.sliding = true
@@ -99,12 +114,12 @@ export default {
       this.sliding = false
     }
   },
-  beforeRouteEnter(to, from, next) {
-    galleriesService.getSingleGallery(to.params.id).then(gallery => {
-      next(vm => {
-        vm.gallery = gallery;
-        //vm.userId = gallery.user_id;
-        vm.username = gallery.user.first_name + " " + gallery.user.last_name;
+    beforeRouteEnter(to, from, next) {
+      galleriesService.getSingleGallery(to.params.id).then(gallery => {
+        next(vm => {
+          vm.gallery = gallery;
+          vm.userId = gallery.user_id;
+          vm.username = gallery.user.first_name + " " + gallery.user.last_name;
         
       });
     });
